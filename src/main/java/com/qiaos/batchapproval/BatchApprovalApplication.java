@@ -39,7 +39,9 @@ public class BatchApprovalApplication extends SpringBootServletInitializer imple
 	}
 	
 	private static SpringApplicationBuilder configureApplication(SpringApplicationBuilder builder) {
-	
+		
+		
+		System.out.println("hellowrold");
 		return builder.sources(BatchApprovalApplication.class).bannerMode(Banner.Mode.OFF);
 	}
 }
