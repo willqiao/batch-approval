@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My HTML File</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+  </head>
+  <body>
+
+    <p>Nothing here {{'yet' + '!'}}</p>
+
+<div ng-app="myApp" ng-controller="taskCtrl"> 
+
+<table class="table table-striped">
+  <thead>
+  	<td>task name</td>
+  	<td>created time</td>
+  </thead>
+  <tr ng-repeat="t in tasks">
+    <td>{{ t.taskName }}</td>
+    <td>{{ t.createdTime }}</td>
+  </tr>
+</table>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('taskCtrl', function($scope, $http) {
+	alert("hi");
+    $http.get("/batch-approval/tasks")
+    .then(function (response) {console.log(response); $scope.tasks = response.data;});
+});
+</script>
+
+
+
+  </body>
+</html>
+
