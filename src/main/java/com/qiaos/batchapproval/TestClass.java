@@ -122,9 +122,9 @@ public class TestClass implements Serializable {
 		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/C", "dir", "c:\\");
 		
 		Process p = pb.start();
-		Base64.getEncoder().encodeToString(src)
-		BufferedReader sr = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		sr.lines().forEach(x->System.out.println(x));
+//		Base64.getEncoder().encodeToString(src)
+//		BufferedReader sr = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//		sr.lines().forEach(x->System.out.println(x));
 //		
 //		pool.awaitTermination(10, TimeUnit.SECONDS);
 //		
