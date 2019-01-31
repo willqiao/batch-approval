@@ -28,7 +28,6 @@
 <script>
 var app = angular.module('myApp', []);
 app.controller('taskCtrl', function($scope, $http) {
-	alert("hi");
     $http.get("/batch-approval/tasks")
     .then(function (response) {console.log(response); $scope.tasks = response.data;});
 });

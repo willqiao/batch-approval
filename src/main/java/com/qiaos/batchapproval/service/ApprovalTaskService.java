@@ -18,7 +18,6 @@ public class ApprovalTaskService {
 		return rep.findById(id).orElse(null);
 	}
 	
-	
 	public Long createTask(ApprovalTask t) {
 		return rep.save(t).getTaskId();
 	}

@@ -2,6 +2,7 @@ package com.qiaos.batchapproval.model;
 
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,10 +39,10 @@ public class ApprovalTask {
 	public void setTaskOwner(String taskOwner) {
 		this.taskOwner = taskOwner;
 	}
-	public Timestamp getCreatedTime() {
+	public LocalDateTime getCreatedTime() {
 		return createdTime;
 	}
-	public void setCreatedTime(Timestamp createdTime) {
+	public void setCreatedTime(LocalDateTime createdTime) {
 		this.createdTime = createdTime;
 	}
 	public void setTaskId(Long taskId) {
@@ -62,5 +63,5 @@ public class ApprovalTask {
 	private String taskName;
 	private String createdBy;
 	private String taskOwner;
-	private Timestamp createdTime;
+	private LocalDateTime createdTime;
 }

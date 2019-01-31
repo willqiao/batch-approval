@@ -1,12 +1,22 @@
 package com.qiaos.batchapproval;
 
-import java.sql.Timestamp;
+import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.concurrent.ListenableFuture;
 
 import com.qiaos.batchapproval.model.ApprovalTask;
 import com.qiaos.batchapproval.rep.ApprovalTaskRepository;
@@ -16,6 +26,9 @@ import com.qiaos.batchapproval.rep.ApprovalTaskRepository;
 public class BatchApprovalApplicationTests {
 	@Autowired
 	ApprovalTaskRepository rep;
+	final static CountDownLatch startSignal = new CountDownLatch(100);
+	@Autowired
+    private KafkaTemplate<String, String> template;
 
 	@Test
 	public void testContextLoads() {
@@ -24,8 +37,31 @@ public class BatchApprovalApplicationTests {
 		tt.setTaskName("ffffff");
 		tt.setTaskOwner("will");
 		tt.setCreatedBy("aaaaaa");
-		tt.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+		tt.setCreatedTime(LocalDateTime.now());
 		rep.save(tt);
 	}
+	
+	@Test
+	public void testSendMsg() {
+		ListenableFuture<SendResult<String, String>> result = template.send("test", "this is my msg2.....");
+		Stream.iterate(0, x->x+1).limit(1000).parallel().forEach(i -> template.send("test", Thread.currentThread().getName() + " msg "+i));
+		
+		result.addCallback(sendResult -> System.out.println(sendResult.getProducerRecord()), ex->ex.printStackTrace());
+		Logger.getGlobal().info("this is my test");
+		assertTrue(true);
+		try {
+			startSignal.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(startSignal.getCount());
+	}
+	
+	@KafkaListener(topics = "test")
+    public void listen(ConsumerRecord<?, ?> cr) throws Exception {
+		System.out.println("--------------------------------");
+		Logger.getGlobal().info(cr.toString());
+		startSignal.countDown();
+    }
 
 }
