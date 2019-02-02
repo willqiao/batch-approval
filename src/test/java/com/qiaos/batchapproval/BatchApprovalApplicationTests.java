@@ -1,9 +1,9 @@
 package com.qiaos.batchapproval;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -16,30 +16,46 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.concurrent.ListenableFuture;
 
 import com.qiaos.batchapproval.model.ApprovalTask;
+import com.qiaos.batchapproval.model.BatchUser;
 import com.qiaos.batchapproval.rep.ApprovalTaskRepository;
+import com.qiaos.batchapproval.rep.BatchUserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BatchApprovalApplicationTests {
 	@Autowired
 	ApprovalTaskRepository rep;
+	
+	@Autowired
+	BatchUserRepository userRepo;
 	final static CountDownLatch startSignal = new CountDownLatch(1000);
 	@Autowired
     private KafkaTemplate<String, String> template;
 
 	@Test
 	public void testContextLoads() {
-		System.out.println(rep.findAll());
-		ApprovalTask tt = new ApprovalTask();
-		tt.setTaskName("ffffff");
-		tt.setTaskOwner("will");
-		tt.setCreatedBy("aaaaaa");
-		tt.setCreatedTime(Instant.now());
-		rep.save(tt);
+//		System.out.println(rep.findAll());
+//		ApprovalTask tt = new ApprovalTask();
+//		tt.setTaskName("ffffff");
+//		tt.setTaskOwner("will");
+//		tt.setCreatedBy("aaaaaa");
+//		tt.setCreatedTime(Instant.now());
+//		rep.save(tt);
+		
+		System.out.println(BatchUser.encoder.encode("password"));
+		assertTrue(BatchUser.encoder.matches("password", "$2a$10$87H25orIdKYGQBFR0DyEXe95hntj2qsrTOTQhxr8BS8UZu3rMJFxu"));
+		userRepo.deleteAll();
+		
+		userRepo.save(new BatchUser("will", "password", "user"));
+		userRepo.save(new BatchUser("root", "root", "admin"));
+		userRepo.save(new BatchUser("admin", "admin", "admin"));
+		
+		assertNotNull(userRepo.findByUsername("will"));
 	}
 	
 	@Test
