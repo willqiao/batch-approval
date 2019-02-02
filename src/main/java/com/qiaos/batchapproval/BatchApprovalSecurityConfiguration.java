@@ -26,7 +26,7 @@ public class BatchApprovalSecurityConfiguration extends WebSecurityConfigurerAda
 	protected void configure(HttpSecurity http) throws Exception {
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!configure http");
 		http.authorizeRequests().antMatchers("/*").permitAll()
-		.antMatchers("/repo/**").authenticated().and().formLogin();
+		.antMatchers("/repo/**").authenticated().and().formLogin().and().logout();
 	}
 
 //	@Override
@@ -40,7 +40,7 @@ public class BatchApprovalSecurityConfiguration extends WebSecurityConfigurerAda
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!configure auth");
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 	    authProvider.setUserDetailsService(username -> {
-			BatchUser u = userRepo.findByUsername("will");
+			BatchUser u = userRepo.findByUsername(username);
 			UserDetails us = new User(username, u.getEncryptpwd(), AuthorityUtils.createAuthorityList("user", u.getRoles()));
 			return us;
 		});

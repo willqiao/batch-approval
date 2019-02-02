@@ -20,7 +20,7 @@ public class BatchUser {
 		this.userpwd = userpwd;
 		this.roles = roles;
 		
-		this.encryptpwd = encoder.encode("password");
+		this.encryptpwd = encoder.encode(userpwd);
 	}
 	@Id
 	@GeneratedValue
