@@ -1,32 +1,37 @@
 package com.qiaos.batchapproval.model;
 
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+//@XmlRootElement
 @Entity
 public class ApprovalTask {
+	public static final DateTimeFormatter formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+	public static final ZoneId defaultZoneId = ZoneId.of("America/Chicago");
 	
 	public ApprovalTask() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.createdTime = Instant.now();
 	}
 	public ApprovalTask(Long taskId, String taskName) {
 		super();
 		this.taskId = taskId;
 		this.taskName = taskName;
+		this.createdTime = Instant.now();
 	}
 	@Override
 	public String toString() {
 		return "ApprovalTask [taskId=" + taskId + ", taskName=" + taskName
 				+ ", createdBy=" + createdBy + ", taskOwner=" + taskOwner
-				+ ", createdTime=" + createdTime + "]";
+				+ ", createdTime=" + formatter.format(ZonedDateTime.ofInstant(createdTime, defaultZoneId)) + "]";
 	}
 	@Id @GeneratedValue
 	private Long taskId;
@@ -39,10 +44,10 @@ public class ApprovalTask {
 	public void setTaskOwner(String taskOwner) {
 		this.taskOwner = taskOwner;
 	}
-	public LocalDateTime getCreatedTime() {
+	public Instant getCreatedTime() {
 		return createdTime;
 	}
-	public void setCreatedTime(LocalDateTime createdTime) {
+	public void setCreatedTime(Instant createdTime) {
 		this.createdTime = createdTime;
 	}
 	public void setTaskId(Long taskId) {
@@ -57,11 +62,14 @@ public class ApprovalTask {
 	public String getCreatedBy() {
 		return createdBy;
 	}
+	public String getFormattedCreatedTime() {
+		return formatter.format(ZonedDateTime.ofInstant(createdTime, defaultZoneId));
+	}
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 	private String taskName;
 	private String createdBy;
 	private String taskOwner;
-	private LocalDateTime createdTime;
+	private Instant createdTime;
 }

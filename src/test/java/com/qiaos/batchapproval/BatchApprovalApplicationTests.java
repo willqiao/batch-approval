@@ -2,6 +2,7 @@ package com.qiaos.batchapproval;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ import com.qiaos.batchapproval.rep.ApprovalTaskRepository;
 public class BatchApprovalApplicationTests {
 	@Autowired
 	ApprovalTaskRepository rep;
-	final static CountDownLatch startSignal = new CountDownLatch(100);
+	final static CountDownLatch startSignal = new CountDownLatch(1000);
 	@Autowired
     private KafkaTemplate<String, String> template;
 
@@ -37,8 +38,13 @@ public class BatchApprovalApplicationTests {
 		tt.setTaskName("ffffff");
 		tt.setTaskOwner("will");
 		tt.setCreatedBy("aaaaaa");
-		tt.setCreatedTime(LocalDateTime.now());
+		tt.setCreatedTime(Instant.now());
 		rep.save(tt);
+	}
+	
+	@Test
+	public void testFindAll() {
+		rep.findByCreatedTimeAfter(Instant.parse("2019-01-31T20:15:30.00Z")).forEach(t-> System.out.println(t));
 	}
 	
 	@Test
@@ -47,6 +53,7 @@ public class BatchApprovalApplicationTests {
 		Stream.iterate(0, x->x+1).limit(1000).parallel().forEach(i -> template.send("test", Thread.currentThread().getName() + " msg "+i));
 		
 		result.addCallback(sendResult -> System.out.println(sendResult.getProducerRecord()), ex->ex.printStackTrace());
+		
 		Logger.getGlobal().info("this is my test");
 		assertTrue(true);
 		try {
