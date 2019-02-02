@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.qiaos.batchapproval.model.ApprovalTask;
@@ -22,7 +23,14 @@ public class ApprovalTaskService {
 		return rep.save(t).getTaskId();
 	}
 	
+	@Cacheable("tests")
 	public ArrayList<ApprovalTask> getTasks() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<ApprovalTask> list = new ArrayList<ApprovalTask>();
 		Iterator<ApprovalTask> t = rep.findAll().iterator();
 		while(t.hasNext()) {

@@ -10,14 +10,14 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.qiaos.batchapproval.model.ApprovalTask;
 
 
 class Vehicle{
@@ -80,9 +80,14 @@ public class TestClass implements Serializable {
 	static ConcurrentHashMap<String, Long> count = new ConcurrentHashMap<>();
 	
 	public static void main(String[] args) throws Exception {
+		System.out.println(LocalDateTime.now(ZoneId.of("America/New_York")));
 		
 		Logger.getGlobal().info("This is just a log........" + Logger.getGlobal().getParent().getLevel());
 		Instant t = Instant.now();
+		System.out.println(ApprovalTask.formatter.format(ZonedDateTime.ofInstant(t, ZoneId.of("America/New_York"))));
+		System.out.println(ZonedDateTime.ofInstant(t, ZoneId.of("America/New_York")));
+		
+		
 		System.out.println(ZoneId.of("America/Chicago").getRules());
 		Instant t2 = Instant.now();
 		System.out.println(t2);
@@ -121,7 +126,7 @@ public class TestClass implements Serializable {
 //		
 		ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/C", "dir", "c:\\");
 		
-		Process p = pb.start();
+//		Process p = pb.start();
 //		Base64.getEncoder().encodeToString(src)
 //		BufferedReader sr = new BufferedReader(new InputStreamReader(p.getInputStream()));
 //		sr.lines().forEach(x->System.out.println(x));
