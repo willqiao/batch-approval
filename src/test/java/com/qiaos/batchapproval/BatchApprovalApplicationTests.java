@@ -52,8 +52,8 @@ public class BatchApprovalApplicationTests {
 		userRepo.deleteAll();
 		
 		userRepo.save(new BatchUser("will", "password", "user"));
-		userRepo.save(new BatchUser("root", "root", "admin"));
-		userRepo.save(new BatchUser("admin", "admin", "admin"));
+		userRepo.save(new BatchUser("root", "root", "user"));
+		userRepo.save(new BatchUser("admin", "admin", "user"));
 		
 		assertNotNull(userRepo.findByUsername("will"));
 	}
