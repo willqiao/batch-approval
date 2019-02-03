@@ -1,7 +1,11 @@
 package com.qiaos.batchapproval;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -24,9 +28,12 @@ public class BatchApprovalApplication extends SpringBootServletInitializer imple
 	@Autowired
 	private ConfigurableApplicationContext applicationContext;
 	
+	@Value("${myqueue.name}")
+	private String queueName;
+	
 	@RequestMapping(path="/hello", method=RequestMethod.GET )//, produces = "application/json"
 	public ApprovalTask hello(@RequestParam(name="first", defaultValue="will") String name) {
-		System.out.println("greeting api get...");
+		System.out.println("greeting api get..." + this.queueName);
 //		AnnotationConfigApplicationContext t = new AnnotationConfigApplicationContext(BeanConfig.class);
 		ApprovalTask g = applicationContext.getBean("greeting", ApprovalTask.class);
 		g.setTaskId(1L);
@@ -44,5 +51,12 @@ public class BatchApprovalApplication extends SpringBootServletInitializer imple
 		SpringApplication.run(BatchApprovalApplication.class, args);
 	}
 	
+	@Bean
+	public CommandLineRunner command() {
+		return x -> {
+			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+			Arrays.asList(x).forEach(arg->System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@"+arg));
+			};
+	}
 	
 }
