@@ -8,3 +8,4 @@
 
 ### Redux Key Notes
 
+This is just test.
