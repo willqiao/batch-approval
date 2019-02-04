@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.qiaos</groupId>
-	<artifactId>batch-approval</artifactId>
+	<artifactId>batch-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>batch-approval</name>
+	<name>batch-server</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
