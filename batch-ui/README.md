@@ -22,21 +22,19 @@ git config --global credential.helper 'cache --timeout=36000'
 
 ### create-react-app command outpout
 
-  npm start
-    Starts the development server.
+if we want to keep non-standard html attributes, have data- as prefix.
+  <li data-react-is-awesome="true">React is awesome!</li>
+  use {...this.properties} to apply all properties.
 
-  npm run build
-    Bundles the app into static files for production.
+	ECMAScript 7 - from 2016
 
-  npm test
-    Starts the test runner.
+  arrow function in ES6
+  const x = (x, y) => { return x * y };
 
-  npm run eject
-    Removes this tool and copies build dependencies, configuration files
-    and scripts into the app directory. If you do this, you can’t go back!
+  1. initialize state by assigning object
+  2. update state elsewhere : setState({oneproperty:value}, callbackfunction) 
+  3. we can move state value to top component, and pass it to child (stateless) component through properties. Stateless component is better defined as function to avoid adding state.
 
-We suggest that you begin by typing:
 
-  cd my-react-app
-  npm start
-
+### ES 6 2015 cheat sheets
+https://github.com/azat-co/cheatsheets/tree/master/es6
