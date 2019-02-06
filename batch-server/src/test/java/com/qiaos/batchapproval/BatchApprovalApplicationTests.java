@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.concurrent.ListenableFuture;
 
@@ -47,8 +47,8 @@ public class BatchApprovalApplicationTests {
 //		tt.setCreatedTime(Instant.now());
 //		rep.save(tt);
 		
-		System.out.println(BatchUser.encoder.encode("password"));
-		assertTrue(BatchUser.encoder.matches("password", "$2a$10$87H25orIdKYGQBFR0DyEXe95hntj2qsrTOTQhxr8BS8UZu3rMJFxu"));
+//		System.out.println(BatchUser.encoder.encode("password"));
+//		assertTrue(BatchUser.encoder.matches("password", "$2a$10$87H25orIdKYGQBFR0DyEXe95hntj2qsrTOTQhxr8BS8UZu3rMJFxu"));
 		userRepo.deleteAll();
 		
 		userRepo.save(new BatchUser("will", "password", "user"));

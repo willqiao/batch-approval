@@ -3,7 +3,7 @@ package com.qiaos.batchapproval.rest;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,7 @@ import com.qiaos.batchapproval.model.ApprovalTask;
 import com.qiaos.batchapproval.service.ApprovalTaskService;
 
 @RestController
+@CrossOrigin(origins="*", allowCredentials = "true", allowedHeaders = "*")
 public class BatchTaskRest {
 	@Autowired
 	ApprovalTaskService service;

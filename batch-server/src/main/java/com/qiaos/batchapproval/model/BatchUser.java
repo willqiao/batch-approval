@@ -1,15 +1,19 @@
 package com.qiaos.batchapproval.model;
 
+import java.util.Base64;
+import java.util.Base64.Encoder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class BatchUser {
-	public static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	public static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	public static final Encoder encoder = Base64.getEncoder();
 	public BatchUser() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -20,7 +24,7 @@ public class BatchUser {
 		this.userpwd = userpwd;
 		this.roles = roles;
 		
-		this.encryptpwd = encoder.encode(userpwd);
+		this.encryptpwd = new String(encoder.encode(userpwd.getBytes()));
 	}
 	@Id
 	@GeneratedValue
@@ -64,7 +68,7 @@ public class BatchUser {
 	}
 	
 	public boolean matchPwd(String rawpwd) {
-		return encoder.matches(rawpwd, encryptpwd);
+		return new String(encoder.encode(rawpwd.getBytes())).equals(encryptpwd);
 	}
 	
 
