@@ -12,3 +12,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.cellStyle{
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.squareStyle {
+  width: 50px;
+  height: 50px;
+  border: 1px solid red;
+}
+
+
+.circleStyle {
+  width: 50px;
+  height: 50px;
+  border: 1px solid blue;
+  border-radius: 50%;
+  background-color: green;
+}

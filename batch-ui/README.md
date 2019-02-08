@@ -34,6 +34,7 @@ if we want to keep non-standard html attributes, have data- as prefix.
   1. initialize state by assigning object
   2. update state elsewhere : setState({oneproperty:value}, callbackfunction) 
   3. we can move state value to top component, and pass it to child (stateless) component through properties. Stateless component is better defined as function to avoid adding state.
+  4. React is one way binding, we need onChange event to setState for user input.
 
 
 ### ES 6 2015 cheat sheets

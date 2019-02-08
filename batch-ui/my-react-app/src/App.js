@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { ProgressBar } from './Cell';
 
 const ClockView = (props) => {
   let clockstyle = {
@@ -23,7 +23,7 @@ const ClockView = (props) => {
     transformOrigin: '0 0'
   }
 
-  return <div style={clockstyle}>
+  return <div style={clockstyle} {...props}>
     <div style={secondStyle}></div>
   </div>
 }
@@ -32,33 +32,48 @@ class App extends Component {
 
   state = {
     test: "good job",
-    rotateSecond: '0deg'
+    rotateSecond: '0deg',
+    displayProgress: 'inactive'
   };
 
   constructor(props) {
     super(props);
 
+    
+
+  }
+
+  componentDidMount() {
     setInterval(() => {
       this.setState({ rotateSecond: (-90 + (new Date().getSeconds() * 6)) + 'deg' });
     }, 1000);
 
-    fetch('https://localhost:8443/batch-approval/tasks').then(
-      (res)=> {console.log(res)} )
-      .then((res)=>console.log(res)).catch((e)=>console.log(e));
-
+    this.setState({displayProgress:'active'});
+    fetch('https://localhost:8443/batch-approval/tasks').then((res)=>res.json()).then(
+      (data)=>  {
+        this.setState({test:data[0].formattedCreatedTime})
+        this.setState({displayProgress:'inactive'});
+        console.log(this.state, 'test2');
+      }).catch((e)=>console.log(e));
   }
 
-
   render() {
-    let num = Number.MAX_SAFE_INTEGER;
-    let t = new Date();
-    let a = new Set();
-    a.add("test");
 
     return <div {...this.props} className="App" >
-      <ClockView seconds={this.state.rotateSecond} />
+      
+
+      <ClockView seconds={this.state.rotateSecond} onClick={(event)=> {
+        this.setState({displayProgress:'active'});
+        fetch('https://localhost:8443/batch-approval/tasks').then((res)=>res.json()).then(
+          (data)=>  {
+            this.setState({test:data[0].formattedCreatedTime})
+            this.setState({displayProgress:'inactive'});
+            console.log(this.state, 'test2');
+          }).catch((e)=>console.log(e));
+        }} />
 
       <div>{this.state.rotateSecond} this s i"s my n'fame fff   : {new Date().toISOString()} {this.props.title}</div>
+      <ProgressBar displayProgress={this.state.displayProgress}/>  
     </div>;
   }
 }
