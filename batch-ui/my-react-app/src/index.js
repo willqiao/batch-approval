@@ -50,17 +50,55 @@ ReactDOM.render(
             <div className="nav-wrapper teal lighten-2">
               <div className="brand-logo left" style={{paddingLeft:'20px'}}><i className="material-icons">cloud</i>Demo Site</div>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
-                <MenuLink label='Tasks' to="/tasks" iconname='collections' badge='5'/>
-                <MenuLink label='Users' to="/users" iconname='people'/>
-                <MenuLink label='My Acct' to="/settings" iconname='settings'/>
+            <Route
+                path="/" exact={true}
+                children={({ match }) => (
+                    <li className={match ? "active" : ""}><Link to='/'><i className="small material-icons left">home</i>Home</Link></li>
+                )} />
+
+            <Route
+                path="/games"
+                children={({ match }) => (
+                    <li className={match ? "active" : ""}><Link to='/games'><i className="small material-icons left">games</i>
+                    Game<span className="new badge red"></span></Link></li>
+                )} />
+
+            <Route
+                path="/tasks"
+                children={({ match }) => (
+                    <li className={match ? "active" : ""}><Link to="/tasks"><i className="small material-icons left">people</i>Tasks</Link></li>
+                )} />
+
+            <Route
+                path="/settings"
+                children={({ match }) => (
+                    <li className={match ? "active" : ""}><Link to='/settings'><i className="small material-icons left">settings</i>Flip</Link></li>
+                )} />
+
               </ul>
             </div>
           </nav>
+        
+        
+        <div class="row" style={{padding:'15px'}}>
+        <div class="col l12 ">
 
-        <Route path="/tasks"  component={()=> <ClockApp id="test1" title=" Addtional Title. " /> }  />
-        <Route path="/users" exact={true}  component={UserListPage} />
-        <Route path="/users/:id" component={UserDetailPage} />
-        <Route path="/settings" component={SettingPage} />
+            <Route path="/" exact={true} component={()=> (
+            <div class="row">
+            <div class="col s12 m5">
+                <div class="card-panel teal">
+                <span class="white-text">This is a demo site for Will's applications. Enjoy.</span>
+                </div>
+            </div>
+            </div>
+            )}  />
+            <Route path="/games"  component={()=> <ClockApp id="test1" title=" Addtional Title. " /> }  />
+            <Route path="/tasks" exact={true}  component={UserListPage} />
+            <Route path="/tasks/:id" component={UserDetailPage} />
+            <Route path="/settings" component={SettingPage} />
+
+        </div>
+        </div>
       </div>
   </Router>
   </Provider>
