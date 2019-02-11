@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { ProgressBar } from './Cell';
-import ReactDOM from "react-dom";
 
 const ClockView = (props) => {
   let clockstyle = {
     position: 'relative',
     border: '1px solid',
-    height: '500px',
-    width: '500px',
+    height: '400px',
+    width: '400px',
     borderRadius: '50%'
   }
 
   let secondStyle = {
     position: 'relative',
-    top: '250px',
-    left: '250px',
+    top: '200px',
+    left: '200px',
     border: '1px solid',
     height: '1px',
     width: '45%',
@@ -40,13 +37,6 @@ class App extends Component {
   };
 
   unmount = false;
-
-  constructor(props) {
-    super(props);
-
-    
-
-  }
 
   componentDidMount() {
     this.unmount = false;

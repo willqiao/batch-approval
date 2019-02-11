@@ -1,0 +1,6 @@
+export default {
+    LOAD_TASKS: 'LOAD_TASKS',
+    GET_TASK: 'GET_TASK',
+    FETCH_TRACKS: 'FETCH_TRACKS',
+    FETCH_USER: 'FETCH USER'
+};

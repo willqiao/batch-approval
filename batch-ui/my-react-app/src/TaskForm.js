@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 class TaskForm extends Component {
   constructor(props) {
     super(props);
@@ -78,25 +79,6 @@ class TaskForm extends Component {
         </div>
 
         <br />
-
-        {/* <input
-          type="checkbox"
-          name="checkGroup"
-          value="Backend"
-          checked={this.state.taskTypes["backend"]}
-        />
-        <input
-          type="checkbox"
-          name="checkGroup"
-          value="Batch"
-          checked={this.state.taskTypes["batch"]}
-        />
-        <input
-          type="checkbox"
-          name="checkGroup"
-          value="Approval"
-          checked={this.state.taskTypes["approval"]}
-        /> */}
       </form>
     );
   }

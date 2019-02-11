@@ -1,25 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import ClockApp from "./ClockApp";
 import Cell from "./Cell";
-import TaskForm from "./TaskForm";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import UserDetailPage from "./pages/UserDetailPage";
-import { connect, Provider } from 'react-redux';
-import { Reducer, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import taskReducer from './reducer/reducer';
-import UsersPage from "./pages/UsersPage";
+import UserListPage from "./pages/UserListPage";
 
 
-const TaskPage = (props) => {
-    return <App id="test1" title="just a test" />
-}
 
-const UserPage = (props) => {
-    return    <TaskForm />
-}
 
 const SettingPage = (props) => {
     return <div>
@@ -55,7 +48,7 @@ ReactDOM.render(
       <div>
         <nav> 
             <div className="nav-wrapper teal lighten-2">
-              <a href="#" className="brand-logo" style={{paddingLeft:'20px'}}><i className="material-icons">cloud</i>Batch Approval</a>
+              <div className="brand-logo left" style={{paddingLeft:'20px'}}><i className="material-icons">cloud</i>Demo Site</div>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <MenuLink label='Tasks' to="/tasks" iconname='collections' badge='5'/>
                 <MenuLink label='Users' to="/users" iconname='people'/>
@@ -64,8 +57,8 @@ ReactDOM.render(
             </div>
           </nav>
 
-        <Route path="/tasks"  component={TaskPage} />
-        <Route path="/users" exact={true}  component={UsersPage} />
+        <Route path="/tasks"  component={()=> <ClockApp id="test1" title=" Addtional Title. " /> }  />
+        <Route path="/users" exact={true}  component={UserListPage} />
         <Route path="/users/:id" component={UserDetailPage} />
         <Route path="/settings" component={SettingPage} />
       </div>

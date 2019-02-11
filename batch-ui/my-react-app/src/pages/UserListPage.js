@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import actionTypes from '../constant/actionTypes';
 
-class UsersPage extends Component {
+class UserListPage extends Component {
     componentDidMount() {
         fetch('https://localhost:8443/batch-approval/tasks').then((res)=>res.json()).then(
             (tasks)=>  {
@@ -26,7 +27,7 @@ class UsersPage extends Component {
 
 const mapDispatchToProps = (dispatch) =>  {
     return {
-        loadTasks : (tasks) => dispatch({type:'LOAD_TASKS', alltasks:tasks})
+        loadTasks : (tasks) => dispatch({type:actionTypes.LOAD_TASKS, alltasks:tasks})
     }
 }
 
@@ -35,4 +36,4 @@ const mapStateToProps = (state) => {
     return {alltasks:state.alltasks};
 }
  
-export default connect(mapStateToProps, mapDispatchToProps) (UsersPage);
+export default connect(mapStateToProps, mapDispatchToProps) (UserListPage);

@@ -1,6 +1,6 @@
 {
-  "short_name": "Batch App",
-  "name": "Batch Approval Application",
+  "short_name": "Demo App",
+  "name": "Will's demo application",
   "icons": [
     {
       "src": "/favicon.ico",
