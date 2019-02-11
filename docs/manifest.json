@@ -1,6 +1,6 @@
 {
-  "short_name": "Batch Approval",
-  "name": "My Approval Batch",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
