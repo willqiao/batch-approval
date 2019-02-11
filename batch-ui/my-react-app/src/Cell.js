@@ -50,7 +50,6 @@ const mapStateToProps = (previousState) => {
 const mapDispatchToProps = (dispatch) => {
   return { 
           on_click: ()=> dispatch({type:'good', data:'mydata' })
-
         }
 }
 
