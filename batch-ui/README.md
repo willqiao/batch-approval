@@ -37,10 +37,10 @@ if we want to keep non-standard html attributes, have data- as prefix.
   4. React is one way binding, we need onChange event to setState for user input.
   5. functional component, you can pass props through function. 
   6. Redux
-    1. Provider for root component
-    2. connect(mapStatetoProps, mapDispatchtoProps) (ComponentName)
-    3. mapState to props, just return a {name: state.somevalue, ... }
-    4. mapDispatch, just return a { method1: (somedata)=>dispatch({type:something,data:somedata}) }
+    - Provider for root component
+    - connect(mapStatetoProps, mapDispatchtoProps) (ComponentName)
+    - mapState to props, just return a {name: state.somevalue, ... }
+    - mapDispatch, just return a { method1: (somedata)=>dispatch({type:something,data:somedata}) }
   
 
 
