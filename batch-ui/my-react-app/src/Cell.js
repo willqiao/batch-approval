@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 
 class Cell extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class Cell extends Component {
   }
 
   render() {
+    console.log(this.props, "Cell");
     return (
       <div
         onClick={event => {
@@ -41,4 +43,15 @@ export const ProgressBar = (props) => {
   );
 };
 
-export default Cell;
+const mapStateToProps = (previousState) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+          on_click: ()=> dispatch({type:'good', data:'mydata' })
+
+        }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Cell);

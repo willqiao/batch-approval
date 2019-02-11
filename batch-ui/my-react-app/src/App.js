@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { ProgressBar } from './Cell';
+import ReactDOM from "react-dom";
 
 const ClockView = (props) => {
   let clockstyle = {
@@ -33,8 +34,12 @@ class App extends Component {
   state = {
     test: "good job",
     rotateSecond: '0deg',
-    displayProgress: 'inactive'
+    displayProgress: 'inactive',
+    intervalHandle: null,
+    
   };
+
+  unmount = false;
 
   constructor(props) {
     super(props);
@@ -44,17 +49,27 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
+    this.unmount = false;
+    let handler = setInterval(() => {
       this.setState({ rotateSecond: (-90 + (new Date().getSeconds() * 6)) + 'deg' });
     }, 1000);
 
+    this.setState({intervalHandle:handler});
     this.setState({displayProgress:'active'});
     fetch('https://localhost:8443/batch-approval/tasks').then((res)=>res.json()).then(
       (data)=>  {
-        this.setState({test:data[0].formattedCreatedTime})
-        this.setState({displayProgress:'inactive'});
-        console.log(this.state, 'test2');
+        if (this.unmount === false) {
+          this.setState({test:data[0].formattedCreatedTime})
+          this.setState({displayProgress:'inactive'});
+          console.log(this.state, 'test2');
+        }
       }).catch((e)=>console.log(e));
+    
+  }
+
+  componentWillUnmount() {
+    this.unmount = true;
+    window.clearInterval(this.state.intervalHandle);
   }
 
   render() {

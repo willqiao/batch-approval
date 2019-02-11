@@ -35,6 +35,13 @@ if we want to keep non-standard html attributes, have data- as prefix.
   2. update state elsewhere : setState({oneproperty:value}, callbackfunction) 
   3. we can move state value to top component, and pass it to child (stateless) component through properties. Stateless component is better defined as function to avoid adding state.
   4. React is one way binding, we need onChange event to setState for user input.
+  5. functional component, you can pass props through function. 
+  6. Redux
+    1. Provider for root component
+    2. connect(mapStatetoProps, mapDispatchtoProps) (ComponentName)
+    3. mapState to props, just return a {name: state.somevalue, ... }
+    4. mapDispatch, just return a { method1: (somedata)=>dispatch({type:something,data:somedata}) }
+  
 
 
 ### ES 6 2015 cheat sheets
