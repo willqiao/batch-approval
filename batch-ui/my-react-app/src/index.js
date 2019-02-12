@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import taskReducer from './reducer/reducer';
 import UserListPage from "./pages/UserListPage";
+import SudokuPage from "./pages/SudokuPage";
 
 
 
@@ -80,17 +81,23 @@ ReactDOM.render(
           </nav>
         
         
-        <div class="row" style={{padding:'15px'}}>
-        <div class="col l12 ">
+        <div className="row" style={{padding:'15px'}}>
+        <div className="col l12 ">
 
             <Route path="/" exact={true} component={()=> (
-            <div class="row">
-            <div class="col s12 m5">
-                <div class="card-panel teal">
-                <span class="white-text">This is a demo site for Will's applications. Enjoy.</span>
+                <div>
+            <div className="row">
+                <div className="col s12 m5">
+                    <div className="card-panel teal">
+                    <span className="white-text">This is a demo site for Will's applications. Enjoy.</span>
+                    </div>
                 </div>
             </div>
+
+            <SudokuPage />
+            
             </div>
+
             )}  />
             <Route path="/games"  component={()=> <ClockApp id="test1" title=" Addtional Title. " /> }  />
             <Route path="/tasks" exact={true}  component={UserListPage} />

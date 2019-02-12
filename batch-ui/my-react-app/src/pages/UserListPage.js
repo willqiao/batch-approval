@@ -17,7 +17,7 @@ class UserListPage extends Component {
         return ( <div>
             <ul className='collection'>
                 {this.props.alltasks.map((t)=>{
-                    return <li className='collection-item' key={'userlist'+t.taskId}> <Link to={'/users/'+ t.taskId}>{t.taskName+'-' + t.formattedCreatedTime} </Link></li>
+                    return <li className='collection-item' key={'userlist'+t.taskId}> <Link to={'/tasks/'+ t.taskId}>{t.taskName+'-' + t.formattedCreatedTime} </Link></li>
                 })}
                 
             </ul>
