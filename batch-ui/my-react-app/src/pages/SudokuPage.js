@@ -219,7 +219,7 @@ class SudokuPage extends Component {
             {   
             this.state.matrix.map((row,i) => {
                 return <div className="row" key={'row'+i}>
-                    {row.map( (cell,j) =>  <div className='squareStyle left' key={'cell' +j} onClick={()=>this.flip(i,j)}>{cell}</div> )}
+                    {row.map( (cell,j) =>  <div className='squareStyle left' style={{cursor: 'pointer'}} key={'cell' +j} onClick={()=>this.flip(i,j)}>{cell}</div> )}
                 </div>
             })
             }

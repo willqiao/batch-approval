@@ -8,7 +8,9 @@ class UserListPage extends Component {
         fetch('https://localhost:8443/batch-approval/tasks').then((res)=>res.json()).then(
             (tasks)=>  {
                 this.props.loadTasks(tasks);
-            }).catch((e)=>console.log(e));
+            }).catch((e)=>{
+                this.props.loadTasks([{"taskId":1,"taskName":"Mock Data1","createdBy":"aaaaaa","taskOwner":"will","createdTime":1548932096.000000000,"formattedCreatedTime":"2019-01-31T04:54:56-06:00[America/Chicago]"},{"taskId":2,"taskName":"ffffff","createdBy":"aaaaaa","taskOwner":"will","createdTime":1548943928.000000000,"formattedCreatedTime":"2019-01-31T08:12:08-06:00[America/Chicago]"},{"taskId":3,"taskName":"ffffff","createdBy":"aaaaaa","taskOwner":"will","createdTime":1548944501.000000000,"formattedCreatedTime":"2019-01-31T08:21:41-06:00[America/Chicago]"},{"taskId":4,"taskName":"Mock Data 4","createdBy":"aaaaaa","taskOwner":"will","createdTime":1548947523.000000000,"formattedCreatedTime":"2019-01-31T09:12:03-06:00[America/Chicago]"}]);
+            });
 
     }
 

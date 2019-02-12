@@ -32,7 +32,9 @@ const mapDispatchToProps = (dispatch) => {
         onGetTask: (id)=> {
             fetch('https://localhost:8443/batch-approval/task/'+ id).then((res)=> res.json()).then(t=>{
                 dispatch({type:actionTypes.GET_TASK, task:{taskName:t.taskName, taskId: t.taskId, taskCreated:t.formattedCreatedTime}});
-            }).catch((e)=>console.log(e));
+            }).catch((e)=>{
+                dispatch({type:actionTypes.GET_TASK, task: {"taskId":1,"taskName":"Mock Data1","createdBy":"aaaaaa","taskOwner":"will","createdTime":1548932096.000000000,"formattedCreatedTime":"2019-01-31T04:54:56-06:00[America/Chicago]"}});
+            });
             
         }
     }
