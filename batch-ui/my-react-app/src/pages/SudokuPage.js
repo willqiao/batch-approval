@@ -34,6 +34,9 @@ class SudokuPage extends Component {
         this.solveHandler = this.solveHandler.bind(this);
         this.solveHandlerHelper = this.solveHandlerHelper.bind(this);
         this.validateSudoku = this.validateSudoku.bind(this);
+        this.flip = this.flip.bind(this);
+        this.reset = this.reset.bind(this);
+        this.findAll = this.findAll.bind(this);
         this.findAllAvailableOptionMap = this.findAllAvailableOptionMap.bind(this);
 
     }
@@ -69,11 +72,46 @@ class SudokuPage extends Component {
     }
 
 
+    findAll(i, j) {
+        let cell = this.matrix[i][j];
+
+        let optionSet = new Set();
+        Array(9).fill(1).forEach((_, k)=>{
+            this.matrix[i][k] === '.' ? optionSet.has('.') : optionSet.add(this.matrix[i][k]);
+        });
+
+        Array(9).fill(1).forEach((_, k)=>{
+            this.matrix[k][j] === '.' ? optionSet.has('.') : optionSet.add(this.matrix[k][j]);
+        });
+
+        // i/3
+        Array(3).fill(1).forEach((_,tempI)=>{
+            Array(3).fill(1).forEach((_,tempJ)=>{
+                let cell = this.matrix[tempI + Math.floor(i/3) * 3][tempJ + Math.floor(j/3) * 3];
+                cell === '.' ? optionSet.has('.') : optionSet.add(cell);
+            });
+        });
+
+        let difference = new Set([...all_number_set].filter((item)=> !optionSet.has(item)));
+        return difference;
+      
+    }
+
+
     solveHandler() {
         // let newmatrix = JSON.parse(JSON.stringify(this.state.matrix));
         // newmatrix[0][0] = 'G'
-        // this.setState({ matrix: newmatrix});
-        this.solveHandlerHelper(null);
+        // 
+
+        let backup = JSON.parse(JSON.stringify(this.matrix));   
+        
+        if (this.solveHandlerHelper(null) == false) {
+            this.setState({ matrix: backup});
+            window.M.toast({html: 'No Solution!'})
+
+        } else {
+            window.M.toast({html: 'Found Solution!'})
+        }
         // console.log(mymap);
         // console.log(mymap.get('0_1'));
         
@@ -127,16 +165,61 @@ class SudokuPage extends Component {
         
     }
 
+    flip(i,j) {
+        let options = this.findAll(i,j);
+        if (options == null || options.size === 0 ) {
+            return;
+        } 
+        options.add('.');
+        options.add(this.matrix[i][j]);
+        
+        
+        console.log(options);
+        let arr = [...options].sort();
+        let newval = this.matrix[i][j];
+        for (let tem = 0; tem < arr.length; tem ++) {
+            console.log(this.matrix[i][j], arr[tem] === this.matrix[i][j], arr[tem], tem)
+            if (arr[tem] === this.matrix[i][j]) {
+                if (tem == arr.length - 1) {
+                    newval = arr[0];
+                } else {
+                    newval = arr[tem+1];
+                }
+                break;
+            }
+        }
+
+        this.matrix[i][j] = newval;
+        let newmatrix = JSON.parse(JSON.stringify(this.matrix));        
+        this.setState({matrix:newmatrix});
+        
+    }
+
+    reset() {
+        this.matrix = [
+            ["5","3",".",".","7",".",".",".","."],
+            ["6",".",".","1","9","5",".",".","."],
+            [".","9","8",".",".",".",".","6","."],
+            ["8",".",".",".","6",".",".",".","3"],
+            ["4",".",".","8",".","3",".",".","1"],
+            ["7",".",".",".","2",".",".",".","6"],
+            [".","6",".",".",".",".","2","8","."],
+            [".",".",".","4","1","9",".",".","5"],
+            [".",".",".",".","8",".",".","7","9"]];
+        this.setState({matrix:this.matrix});
+    }
+
     render() {
             
         return <div>
             <a className="waves-effect waves-light btn" onClick={this.solveHandler}>Start Solving Sudoku</a>
+            <a className="waves-effect waves-light btn" style={{marginLeft:'30px'}} onClick={this.reset}>Reset</a>
             <br/><br/>
 
             {   
             this.state.matrix.map((row,i) => {
                 return <div className="row" key={'row'+i}>
-                    {row.map( (cell,j) =>  <div className='squareStyle left' key={'cell' +j}>{cell}</div> )}
+                    {row.map( (cell,j) =>  <div className='squareStyle left' key={'cell' +j} onClick={()=>this.flip(i,j)}>{cell}</div> )}
                 </div>
             })
             }
