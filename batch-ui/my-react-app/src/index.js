@@ -89,7 +89,7 @@ ReactDOM.render(
             <div className="row">
                 <div className="col s12 m5">
                     <div className="card-panel teal">
-                    <span className="white-text">This is a demo site for Will's applications. Enjoy.</span>
+                    <span className="white-text">Click each block to flip the numbers, and click Solve button to find a solution. Enjoy.</span>
                     </div>
                 </div>
             </div>

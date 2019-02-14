@@ -5,7 +5,7 @@ import actionTypes from '../constant/actionTypes';
 
 class UserListPage extends Component {
     componentDidMount() {
-        fetch('https://localhost:8443/batch-approval/tasks').then((res)=>res.json()).then(
+        fetch('https://willdemo-env.mmemiqpc4v.us-east-2.elasticbeanstalk.com:8443/batch-approval/tasks').then((res)=>res.json()).then(
             (tasks)=>  {
                 this.props.loadTasks(tasks);
             }).catch((e)=>{
@@ -17,13 +17,23 @@ class UserListPage extends Component {
     render() { 
         console.log('userspage', this.props);
         return ( <div>
+            <div className="row">
+            <div className="col s12 m5">
+                <div className="card-panel teal">
+                <span className="white-text">The data comes from Spring Boot application running on AWS Beanstalk. Enjoy. https://willdemo-env.mmemiqpc4v.us-east-2.elasticbeanstalk.com:8443/</span>
+                </div>
+            </div>
+        </div>
+        
+        <div>
             <ul className='collection'>
                 {this.props.alltasks.map((t)=>{
                     return <li className='collection-item' key={'userlist'+t.taskId}> <Link to={'/tasks/'+ t.taskId}>{t.taskName+'-' + t.formattedCreatedTime} </Link></li>
                 })}
                 
             </ul>
-        </div> );
+        </div> 
+        </div>);
     }
 }
 
