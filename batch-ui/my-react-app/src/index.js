@@ -11,11 +11,11 @@ import { createStore } from 'redux';
 import taskReducer from './reducer/reducer';
 import UserListPage from "./pages/UserListPage";
 import SudokuPage from "./pages/SudokuPage";
+import SettingPage from "./pages/SettingPage";
 
 
 
-
-const SettingPage = (props) => {
+const SettingPagef = (props) => {
     return <div>
     <div>
       <Cell /><Cell /><Cell />
@@ -73,7 +73,7 @@ ReactDOM.render(
             <Route
                 path="/settings"
                 children={({ match }) => (
-                    <li className={match ? "active" : ""}><Link to='/settings'><i className="small material-icons left">settings</i>Flip</Link></li>
+                    <li className={match ? "active" : ""}><Link to='/settings'><i className="small material-icons left">settings</i>Tic Tac</Link></li>
                 )} />
 
               </ul>

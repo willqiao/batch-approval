@@ -14,7 +14,7 @@ class Cell extends Component {
         onClick={event => {
           this.state.cellClass === "squareStyle"
             ? this.setState({ cellClass: "circleStyle" })
-            : this.setState({ cellClass: "squareStyle" });
+            : this.state.cellClass === "circleStyle" ? this.setState({ cellClass: "squareStyleFill" }) : this.setState({ cellClass: "squareStyle" });
         }}
         className="cellStyle">
         <div className={this.state.cellClass} />
