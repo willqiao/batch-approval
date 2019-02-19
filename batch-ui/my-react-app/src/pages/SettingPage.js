@@ -16,7 +16,8 @@ class SettingPage extends Component {
         this.win = this.win.bind(this);
         this.computerMove = this.computerMove.bind(this);
         this.generateMove = this.generateMove.bind(this);
-
+        this.score = this.score.bind(this);
+        this.findOptions = this.findOptions.bind(this);
     }
     generateMove (i, j, value) {
         let newstate = JSON.parse(JSON.stringify(this.state.data));
@@ -27,7 +28,10 @@ class SettingPage extends Component {
                 window.M.toast({html: this.winner});
             } else {
                 if (value == 9) {
-                    this.computerMove();
+                    let moves = []
+                    this.computerMove( true, 0, moves);
+                    let keys = moves[moves.length -1].split("_");
+                    this.generateMove(keys[0],keys[1],1);
                 }
             }
         });
@@ -103,125 +107,107 @@ class SettingPage extends Component {
     }
     
 	
-	computerMove() {
-		//offence
-		let sum1 = this.state.data[0][0] + this.state.data[1][1] + this.state.data[2][2];
-		if (sum1 == 2) {
-			if (this.state.data[0][0] == 0) this.generateMove(0,0,1);
-			if (this.state.data[1][1] == 0) this.generateMove(1,1,1);
-			if (this.state.data[2][2] == 0) this.generateMove(2,2,1);
-			return;
-		} 
-		
-		let sum2 = this.state.data[0][2] + this.state.data[1][1] + this.state.data[2][0];
-		if (sum2 == 2) {
-			if (this.state.data[0][2] == 0) this.generateMove(0,2,1);
-			if (this.state.data[1][1] == 0) this.generateMove(1,1,1);
-			if (this.state.data[2][0] == 0) this.generateMove(2,0,1);
-			return;
-		} 
-		
-		for (let i = 0; i < 3; i++) {
-			let sum3 = this.state.data[i][0] + this.state.data[i][1] + this.state.data[i][2];
-			if (sum3 == 2) {
-				if (this.state.data[i][0] == 0) this.generateMove(i,0,1);
-				if (this.state.data[i][1] == 0) this.generateMove(i,1,1);
-				if (this.state.data[i][2]== 0) this.generateMove(i,2,1);
-				return;
-			}
-			
-			let sum4 = this.state.data[0][i] + this.state.data[1][i] + this.state.data[2][i];
-			if (sum4 == 2) {
-				if (this.state.data[0][i]== 0) this.generateMove(0,i,1);
-				if (this.state.data[1][i] == 0) this.generateMove(1,i,1);
-				if (this.state.data[2][i] == 0) this.generateMove(2,i,1);
-				return;
-			}
-		}
-		
-		//defence move
-		sum1 = this.state.data[0][0] + this.state.data[1][1] + this.state.data[2][2];
-		if (sum1 == 18) {
-			if (this.state.data[0][0] == 0) this.generateMove(0,0,1);
-			if (this.state.data[1][1] == 0) this.generateMove(1,1,1);
-			if (this.state.data[2][2] == 0) this.generateMove(2,2,1);
-			return;
-		} 
-		
-		sum2 = this.state.data[0][2] + this.state.data[1][1] + this.state.data[2][0];
-		if (sum2 == 18) {
-			if (this.state.data[0][2] == 0) this.generateMove(0,2,1);
-			if (this.state.data[1][1] == 0) this.generateMove(1,1,1);
-			if (this.state.data[2][0] == 0) this.generateMove(2,0,1);
-			return;
-		} 
-		
-		for (let i = 0; i < 3; i++) {
-			let sum3 = this.state.data[i][0] + this.state.data[i][1] + this.state.data[i][2];
-			if (sum3 == 18) {
-				if (this.state.data[i][0] == 0) this.generateMove(i,0,1);
-				if (this.state.data[i][1] == 0) this.generateMove(i,1,1);
-				if (this.state.data[i][2]== 0) this.generateMove(i,2,1);
-				return;
-			}
-			
-			let sum4 = this.state.data[0][i] + this.state.data[1][i] + this.state.data[2][i];
-			if (sum4 == 18) {
-				if (this.state.data[0][i]== 0) this.generateMove(0,i,1);
-				if (this.state.data[1][i] == 0) this.generateMove(1,i,1);
-				if (this.state.data[2][i] == 0) this.generateMove(2,i,1);
-				return;
-			}
-		}
-		
-		sum1 = this.state.data[0][0] + this.state.data[1][1] + this.state.data[2][2];
-		if (sum1 == 0) {
-			this.generateMove(0,0,1);
-			return;
-		} else if (sum1 == 1 ) {
-			if (this.state.data[2][2] == 0) this.generateMove(2,2,1);else  this.generateMove(1,1,1);
-			return;
-		} 
-		
-		sum2 = this.state.data[0][2] + this.state.data[1][1] + this.state.data[2][0];
-		if (sum2 == 0) {
-			this.generateMove(0,2,1);;
-			return;
-		} else if (sum2 == 1) {
-			if (this.state.data[2][0] == 0) this.generateMove(2,0,1); else  this.generateMove(1,1,1);
-			return;
-		}
-		
-		for (let i = 0; i < 3; i++) {
-			let sum3 = this.state.data[i][0] + this.state.data[i][1] + this.state.data[i][2];
-			if (sum3 == 0) {
-				this.generateMove(i,0,1);
-				return;
-			}	 else if (sum3 == 1 ) {
-				if (this.state.data[i][2]== 0) this.generateMove(i,2,1);else  this.generateMove(i,1,1);
-				return;
-			}
-			
-			let sum4 = this.state.data[0][i] + this.state.data[1][i] + this.state.data[2][i];
-			if (sum4 == 0) {
-				this.generateMove(0,i,1);
-				return;
-			}	 else if (sum4 == 1 ) {
-				if (this.state.data[2][i] == 0) this.generateMove(2,i,1); else  this.generateMove(1,i,1);
-				return;
-			}
-		}
-		
+    findOptions() {
+        let options = [];
 		for (let i = 0; i < this.state.data.length; i++) {
 			for (let j = 0; j < this.state.data[i].length; j++) {
 				if (this.state.data[i][j] == 0) {
-					this.generateMove(i,j,1);
-					return;
+					options[options.length] = i+"_"+j;
 				}
 			}
-        } 
+		}
+		return options;
 	}
+    
+    
 
+	computerMove( isComputer, start, moves) {
+		let score =  this.score();
+		let options = this.findOptions();
+		if (score == 10 || score == -10) {
+			return score;
+		} else if (options.length == 0) {
+			return score;
+		}
+		
+		if (isComputer) {
+			let bestValue = -100;
+			let bestMove = "";
+			for (let i = 0; i < options.length; i++) {
+			//computer move Max
+                let keys = options[i].split("_");
+				let f = Number(keys[0]);
+				let s = Number(keys[1]);
+				
+				this.state.data[f][s] = 1;
+				if (this.score() == 10) {
+					bestValue = 10;
+					bestMove = options[i];
+					this.state.data[f][s] = 0;
+					break;
+				}
+				let possibleBestMoveFromOpponent = this.computerMove(false, start+1, moves);
+//				if (start == 0) System.out.println("Computer possibleBestMoveFromOpponent" + possibleBestMoveFromOpponent + options[i]);
+				if (possibleBestMoveFromOpponent > bestValue) {
+					bestValue = possibleBestMoveFromOpponent;
+					bestMove = options[i];
+				}
+				
+				this.state.data[f][s] = 0;
+			}
+			moves[moves.length] = bestMove;
+			return bestValue;
+		} else {//user move min value
+			let bestValue = 100;
+			let bestMove = "";
+			for (let i = 0; i < options.length; i++) {
+			//user move min
+				let keys = options[i].split("_");
+				let f = Number(keys[0]);
+				let s = Number(keys[1]);
+				
+				this.state.data[f][s] = 9;
+				if (this.score() == -10) {
+					bestValue = -10;
+					bestMove = options[i];
+					this.state.data[f][s] = 0;
+					break;
+				}
+				let possibleBestMoveFromOpponent = this.computerMove(true, start+1, moves);
+				if (possibleBestMoveFromOpponent < bestValue) {
+					bestValue = possibleBestMoveFromOpponent;
+					bestMove = options[i];
+				}
+				this.state.data[f][s] = 0;
+			}
+			moves[moves.length] = bestMove;
+			return bestValue;
+		}
+			
+	}
+	
+	score() {
+		//8 scenario:
+		let result = false;
+		for (let i = 0; i < 3; i++) {
+			let sum = this.state.data[i][0] + this.state.data[i][1] + this.state.data[i][2];
+			if (sum == 3) return 10;//computer
+			if (sum == 27) return -10;//user
+			
+			sum = this.state.data[0][i] + this.state.data[1][i] + this.state.data[2][i];
+			if (sum == 3) return 10;//computer
+			if (sum == 27) return -10;//user
+		}
+		
+		let sum = this.state.data[0][0] + this.state.data[1][1] + this.state.data[2][2];
+		if (sum == 3) return 10;//computer
+		if (sum == 27) return -10;//user
+		sum = this.state.data[0][2] + this.state.data[1][1] + this.state.data[2][0];
+		if (sum == 3) return 10;//computer
+		if (sum == 27) return -10;//user
+		
+		return 0;
+	}
 
 
 
