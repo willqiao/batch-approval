@@ -50,7 +50,7 @@ ReactDOM.render(
         <nav> 
             <div className="nav-wrapper teal lighten-2">
               <div className="brand-logo left" style={{paddingLeft:'20px'}}><i className="material-icons">cloud</i>Demo Site</div>
-              <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <ul id="nav-mobile" className="right ">
             <Route
                 path="/" exact={true}
                 children={({ match }) => (
